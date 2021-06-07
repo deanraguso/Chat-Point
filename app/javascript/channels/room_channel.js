@@ -10,7 +10,6 @@ function create_message(content){
   if (user.id === gon.current_user.id){
     div.innerHTML += `<a rel="nofollow" data-method="delete" href="/messages/${content.id}">delete</a>`
   }
-  console.log(div);
   return div;
 }
 

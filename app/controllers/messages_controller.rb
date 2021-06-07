@@ -5,16 +5,9 @@ class MessagesController < ApplicationController
         @message.user = current_user
         @room = Room.find(message_params.dig(:room_id))
 
-        respond_to do |format|
-            if @message.save
-              RoomChannel.broadcast_to @room, @message
-              format.html { redirect_to @room, notice: "Room was successfully created." }
-              format.json { render :show, status: :created, location: @room }
-            else
-              format.html { render :new, status: :unprocessable_entity }
-              format.json { render json: @room.errors, status: :unprocessable_entity }
-            end
-          end
+        if @message.save
+          RoomChannel.broadcast_to @room, @message
+        end
     end
 
     def destroy

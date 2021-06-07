@@ -15,7 +15,7 @@ Members:
 <%= form_for :user, url: room_add_user_url ,method: :post do |f| %>
     <div class=field>
         <%= f.label "User Email" %>
-        <%= f.text_field :email, autofocus: true %>
+        <%= f.text_field :email%>
     </div>
     
     <%= f.submit "Add User" %>
@@ -33,7 +33,7 @@ Members:
 </div>
 <br>
 
-<%= form_with model: Message.new do |f| %>
+<%= form_with model: Message.new, class: "message_form", remote: true do |f| %>
 
     <div class=field>
         <%= f.label :content %>
@@ -47,3 +47,4 @@ Members:
 
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
+<%= javascript_pack_tag 'message_submit' %>
