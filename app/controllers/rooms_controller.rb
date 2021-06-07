@@ -28,6 +28,7 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new(room_params)
     @room.admin_id = current_user.id
+    @room.users.push(current_user)
 
     respond_to do |format|
       if @room.save
@@ -75,7 +76,7 @@ class RoomsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def room_params
-      params.require(:room).permit(:name, :topic)
+      params.require(:room).permit(:name, :topic, :admin_id)
     end
 
     private 

@@ -21,6 +21,12 @@
     <%= form.text_field :topic %>
   </div>
 
+  <% if params[:action] == "edit" %>
+    <div class=field>
+      <%= form.collection_select :admin_id, room.users, :id, :name %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= form.submit %>
   </div>
