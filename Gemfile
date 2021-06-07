@@ -58,3 +58,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "devise", "~> 4.8"
 
 gem "gon", "~> 6.4"
+gem "omniauth-github", "~> 2.0"
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
