@@ -3,10 +3,25 @@
 <h2><%= @room.topic %></h2>
 
 Members: 
+<br>
 <% @room.users.each do |u| %>
     <%= u.name %>
+    <% if current_user == @room.admin %>
+        <%= link_to "Remove", room_remove_user_path(@room.id, u.id), method: :put %>
+    <% end %>
+    <br>
 <% end %>
 
+<%= form_for :user, url: room_add_user_url ,method: :post do |f| %>
+    <div class=field>
+        <%= f.label "User Email" %>
+        <%= f.text_field :email, autofocus: true %>
+    </div>
+    
+    <%= f.submit "Add User" %>
+
+<% end %>
+<br>
 
 <div>
     <% @room.messages.sort {|m| -m.created_at.to_i}.each do |m| %>
