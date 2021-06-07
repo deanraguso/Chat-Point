@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: %i[ show edit update destroy ]
+  before_action :set_room, only: %i[ edit update destroy ]
+  before_action :set_room_and_contents, only: [:show]
   before_action :unauthorized_redirect
   before_action :unauthorized_room_redirect, only: [:show]
   before_action :unauthorized_room_admin_redirect, only: [:edit, :update, :destroy]
@@ -11,6 +12,7 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1 or /rooms/1.json
   def show
+    
   end
 
   # GET /rooms/new
@@ -63,6 +65,11 @@ class RoomsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_room
+      @room = Room.find(params[:id])
+    end
+
+    def set_room_and_contents
+      # @room = Room.includes({messages: [:content, :created_at, {user: [:name, :email]}]}, :admin, :users).find(params[:id])
       @room = Room.find(params[:id])
     end
 

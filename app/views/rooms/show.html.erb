@@ -2,5 +2,25 @@
 <h1><%= @room.name %></h1>
 <h2><%= @room.topic %></h2>
 
+<div>
+    <% @room.messages.sort {|m| -m.created_at.to_i}.each do |m| %>
+        <%= m.user.name %>: <%= m.content %>
+        <br>
+    <% end %>
+</div>
+<br>
+
+<%= form_with model: Message.new do |f| %>
+
+    <div class=field>
+        <%= f.label :content %>
+        <%= f.text_field :content, autofocus: true %>
+    </div>
+
+    <%= f.hidden_field :room_id, value: @room.id %>
+
+    <%= f.submit %>
+<% end %>
+
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
