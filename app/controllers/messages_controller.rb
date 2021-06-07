@@ -16,12 +16,19 @@ class MessagesController < ApplicationController
           end
     end
 
-    def update
-
-    end
-
     def destroy
+      @message = Message.find(params[:id])
+      @room = Room.find(@message.room_id)
 
+      respond_to do |format|
+        if @message.update! content: "Message Deleted"
+          format.html { redirect_to @room, notice: "Message successfully deleted!" }
+          format.json { render :show, status: :created, location: @room }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @room.errors, status: :unprocessable_entity }
+        end
+      end
     end
 
     private

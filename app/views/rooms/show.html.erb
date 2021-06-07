@@ -5,6 +5,7 @@
 <div>
     <% @room.messages.sort {|m| -m.created_at.to_i}.each do |m| %>
         <%= m.user.name %>: <%= m.content %>
+        <%= link_to "delete", message_path(m.id), method: :delete if current_user == m.user %>
         <br>
     <% end %>
 </div>

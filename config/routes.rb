@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :rooms
-  resources :messages, only: [:create, :update, :destroy]
+  resources :messages, only: [:create, :destroy]
   devise_for :users
   root 'pages#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
