@@ -1,6 +1,8 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: %i[ show edit update destroy ]
   before_action :unauthorized_redirect
+  before_action :unauthorized_room_redirect, only: [:show]
+  before_action :unauthorized_room_admin_redirect, only: [:edit, :update, :destroy]
 
   # GET /rooms or /rooms.json
   def index
@@ -22,7 +24,8 @@ class RoomsController < ApplicationController
 
   # POST /rooms or /rooms.json
   def create
-    @room = Room.new(room_params.merge(admin_id: current_user.id))
+    @room = Room.new(room_params)
+    @room.admin_id = current_user.id
 
     respond_to do |format|
       if @room.save
@@ -65,11 +68,12 @@ class RoomsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def room_params
-      params.require(:room).permit(:admin, :name, :topic)
+      params.require(:room).permit(:name, :topic)
     end
 
     private 
 
+  # Only logged in users can access any room.
   def unauthorized_redirect
       unless current_user
           p "hello"
@@ -77,4 +81,22 @@ class RoomsController < ApplicationController
       end
   end
 
+  # To limit access to rooms.
+  def unauthorized_room_redirect
+    unless (current_user.rooms.include? @room) || (@room.admin == current_user)  
+      respond_to do |format|
+        format.html { redirect_to rooms_url, notice: "You are not authorized to access that room." }
+        format.json { head :no_content }
+      end
+    end
+  end
+
+  def unauthorized_room_admin_redirect
+    unless @room.admin == current_user  
+      respond_to do |format|
+        format.html { redirect_to @room, notice: "Only the room admin may update or delete the room." }
+        format.json { head :no_content }
+      end
+    end
+  end
 end
