@@ -2,6 +2,9 @@ import consumer from "./consumer"
 
 let url = window.location.href
 
+function create_message(id, content){
+  let element = document.createElement("div");
+}
 
 if(url.indexOf("rooms") != -1){
 

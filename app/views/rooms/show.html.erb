@@ -23,11 +23,12 @@ Members:
 <% end %>
 <br>
 
-<div>
+<div id="messages">
     <% @room.messages.sort {|m| -m.created_at.to_i}.each do |m| %>
-        <%= m.user.name %>: <%= m.content %>
-        <%= link_to "delete", message_path(m.id), method: :delete if current_user == m.user %>
-        <br>
+        <div>
+            <%= m.user.name %>: <%= m.content %>
+            <%= link_to "delete", message_path(m.id), method: :delete if current_user == m.user %>
+        </div>
     <% end %>
 </div>
 <br>
@@ -46,3 +47,4 @@ Members:
 
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
+<%= include_gon %>
