@@ -5,6 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :name, uniqueness: true, presence: true
-
-  has_many :messages, dependent: :destroy, inverse_of: :user
+  has_many :messages, dependent: :destroy
+  has_and_belongs_to_many :rooms
 end
