@@ -2,8 +2,16 @@ import consumer from "./consumer"
 
 let url = window.location.href
 
-function create_message(id, content){
-  let element = document.createElement("div");
+function create_message(content){
+  let div = document.createElement("div");
+  let user = gon.users.filter(user => user.id === content.user_id)[0]
+
+  div.innerHTML = `${user.name}: ${content.content} `; 
+  if (user.id === gon.current_user.id){
+    div.innerHTML += `<a rel="nofollow" data-method="delete" href="/messages/${content.id}">delete</a>`
+  }
+  console.log(div);
+  return div;
 }
 
 if(url.indexOf("rooms") != -1){
@@ -22,7 +30,7 @@ if(url.indexOf("rooms") != -1){
 
     received(data) {
       // Called when there's incoming data on the websocket for this channel
-      console.log(data);
+      document.querySelector("div#messages").insertAdjacentElement("beforeend", create_message(data));
     }
   });
 }
