@@ -15,7 +15,7 @@ Members:
 <%= form_for :user, url: room_add_user_url ,method: :post do |f| %>
     <div class=field>
         <%= f.label "User Email" %>
-        <%= f.text_field :email, autofocus: true %>
+        <%= f.text_field :email%>
     </div>
     
     <%= f.submit "Add User" %>
@@ -23,16 +23,17 @@ Members:
 <% end %>
 <br>
 
-<div>
+<div id="messages">
     <% @room.messages.sort {|m| -m.created_at.to_i}.each do |m| %>
-        <%= m.user.name %>: <%= m.content %>
-        <%= link_to "delete", message_path(m.id), method: :delete if current_user == m.user %>
-        <br>
+        <div>
+            <%= m.user.name %>: <%= m.content %>
+            <%= link_to "delete", message_path(m.id), method: :delete if current_user == m.user %>
+        </div>
     <% end %>
 </div>
 <br>
 
-<%= form_with model: Message.new do |f| %>
+<%= form_with model: Message.new, class: "message_form", remote: true do |f| %>
 
     <div class=field>
         <%= f.label :content %>
@@ -46,3 +47,4 @@ Members:
 
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
+<%= javascript_pack_tag 'message_submit' %>

@@ -3,7 +3,7 @@ class RoomsController < ApplicationController
   before_action :set_room_and_contents, only: [:show]
   before_action :unauthorized_redirect
   before_action :unauthorized_room_redirect, only: [:show]
-  before_action :unauthorized_room_admin_redirect, only: [:edit, :update, :destroy]
+  before_action :unauthorized_room_admin_redirect, only: [:edit, :update, :destroy, :add_user, :remove_user]
 
   # GET /rooms or /rooms.json
   def index
@@ -12,7 +12,8 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1 or /rooms/1.json
   def show
-    
+    gon.current_user = current_user
+    gon.users = @room.users
   end
 
   # GET /rooms/new
