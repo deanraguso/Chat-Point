@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
 
         respond_to do |format|
             if @message.save
+              RoomChannel.broadcast_to @room, @message
               format.html { redirect_to @room, notice: "Room was successfully created." }
               format.json { render :show, status: :created, location: @room }
             else
