@@ -6,27 +6,30 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Members: 
-        <br>
-        <% @room.users.each do |u| %>
-            <%= u.name %> (<%= u.email %>)
-            <% if current_user == @room.admin && u.email != @room.admin.email %>
-                <%= link_to "Remove", room_remove_user_path(@room.id, u.id), method: :put %>
-            <% end %>
-            <br>
-        <% end %>
+        <div class="container p-0 bg-light">
+          <h5>Members</h5> 
+          
+          <% @room.users.each do |u| %>
+              <%= u.name %> (<%= u.email %>)
+              <% if current_user == @room.admin && u.email != @room.admin.email %>
+                  <%= link_to "Remove", room_remove_user_path(@room.id, u.id), method: :put, class: "btn btn-danger m-2" %>
+              <% end %>
+              <br>
+          <% end %>
+        </div>
+
         <%= form_for :user, url: room_add_user_url ,method: :post do |f| %>
-        <div class=field>
-            <%= f.label "User Email" %>
-            <%= f.text_field :email%>
+        <div class="input-group mb-3">
+            <div class="input-group-text">User email</div>
+            <%= f.text_field :email, class: "form-control" %>
         </div>
         
-        <%= f.submit "Add User", class: "btn btn-primary" %>
+        <%= f.submit "Add User", class: "btn btn-primary m-1" %>
 
         <% end %>
 
         <% if @room.admin == current_user %>
-          <button type="button" class="btn btn-danger" data-bs-target="#editRoomModal" data-bs-toggle="modal" data-bs-dismiss="modal" >
+          <button type="button" class="btn btn-danger m-1" data-bs-target="#editRoomModal" data-bs-toggle="modal" data-bs-dismiss="modal" >
               Edit Room
           </button>
         <% end %>

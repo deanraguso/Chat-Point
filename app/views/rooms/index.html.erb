@@ -1,23 +1,27 @@
 <div class="row h-100">
   <div class="container col-12 col-md-3 bg-secondary p-0 h-100">  
-    <h2 class="text-white p-2">Rooms</h2>
-    <p id="notice"><%= notice %></p>
+    <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#newRoomModal">
+      Create Room
+    </button>
+    <div class="card m-0 border-1 bg-dark text-white rounded-0" style="width: 100%;min-width: 100px;">
+      <div class="card-body p-1 text-center">
+        <h2>Rooms</h2>
+      </div>
+    </div>
 
     <% @rooms.each do |room| %>
-      <div class="card m-0 border-1 bg-light rounded-0" style="width: 100%;min-width: 100px;">
+      <div class="card m-0 border-1 bg-dark text-white rounded-0" style="width: 100%;min-width: 100px;">
         <div class="card-body p-1">
           <p class="card-title m-0"><%= room.name %></p>
           <a href="<%= room_url(room.id) %>" class="stretched-link"></a>
         </div>
       </div>
     <% end %>
-
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newRoomModal">
-      Create Room
-    </button>
   </div>
 
-  <div class="container col-9"></div>
+  <div class="container col-9 bg-light">
+    <p id="notice"><%= notice %></p>
+  </div>
 </div>
 
 <%= render 'modal_form', room: @room %>
