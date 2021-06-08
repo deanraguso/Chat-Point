@@ -1,50 +1,49 @@
-<p id="notice"><%= notice %></p>
-<h1><%= @room.name %></h1>
-<h2><%= @room.topic %></h2>
+<div class="row h-100">
+  <div class="container col-12 col-md-3 bg-secondary p-0">  
+    <div class="container-fluid ps-1">
+      <h1><%= @room.name %></h1>
+      <h2><%= @room.topic %></h2>
 
-Members: 
-<br>
-<% @room.users.each do |u| %>
-    <%= u.name %>
-    <% if current_user == @room.admin %>
-        <%= link_to "Remove", room_remove_user_path(@room.id, u.id), method: :put %>
-    <% end %>
-    <br>
-<% end %>
-
-<%= form_for :user, url: room_add_user_url ,method: :post do |f| %>
-    <div class=field>
-        <%= f.label "User Email" %>
-        <%= f.text_field :email%>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
+          Room Settings
+      </button>
+      <p id="notice"><%= notice %></p>
     </div>
-    
-    <%= f.submit "Add User" %>
-
-<% end %>
-<br>
-
-<div id="messages">
-    <% @room.messages.sort {|m| -m.created_at.to_i}.each do |m| %>
-        <div>
-            <%= m.user.name %>: <%= m.content %>
-            <%= link_to "delete", message_path(m.id), method: :delete if current_user == m.user %>
+    <% @rooms.each do |room| %>
+      <div class="card m-0 border-1 bg-light rounded-0" style="width: 100%;min-width: 100px;">
+        <div class="card-body p-1">
+          <p class="card-title m-0"><%= room.name %></p>
+          <a href="<%= room_url(room.id) %>" class="stretched-link"></a>
         </div>
+      </div>
     <% end %>
-</div>
-<br>
 
-<%= form_with model: Message.new, class: "message_form", remote: true do |f| %>
+    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#newRoomModal">
+      Create Room
+    </button>
+  </div>
 
-    <div class=field>
-        <%= f.label :content %>
-        <%= f.text_field :content, autofocus: true %>
+  <div class="container col-12 col-md-9 p-3 align-self-end">
+    <div id="messages">
+        <% @room.messages.sort {|m| -m.created_at.to_i}.each do |m| %>
+            <div>
+                <%= m.user.name %>: <%= m.content %>
+                <%= link_to "delete", message_path(m.id), method: :delete if current_user == m.user %>
+            </div>
+        <% end %>
     </div>
 
-    <%= f.hidden_field :room_id, value: @room.id %>
+    <%= form_with model: Message.new, class: "message_form form_group w-100", remote: true do |f| %>
+      <div class="input-group m-0 pt-3">
+        <%= f.text_field :content, autofocus: true, class: "form-control" %>
+        <%= f.hidden_field :room_id, value: @room.id %>
+        <%= f.submit class: "submit btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-    <%= f.submit %>
-<% end %>
-
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
+<%= render 'modal_form', room: @new_room %>
+<%= render 'modal_form', room: @room %>
+<%= render 'room_settings_modal' %>
 <%= javascript_pack_tag 'message_submit' %>

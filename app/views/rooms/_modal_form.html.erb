@@ -1,12 +1,18 @@
-<div class="modal fade" id="newRoomModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<% id = room.id ? "editRoomModal" : "newRoomModal" %>
+<% title = room.id ? "Edit Room" : "Create Room" %>
+<% url = room.id ? room_url(room.id) : rooms_url %>
+<% method = room.id ? :put : :post %>
+
+<div class="modal fade" id="<%= id %>" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="createRoom">Create Room</h5>
+
+        <h5 class="modal-title" id="createRoom"><%= title %></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%= form_with(model: room) do |form| %>
+        <%= form_with(model: room, url: url, method: method) do |form| %>
           <% if room.errors.any? %>
             <div id="error_explanation">
               <h2><%= pluralize(room.errors.count, "error") %> prohibited this room from being saved:</h2>
@@ -29,10 +35,10 @@
             <%= form.text_field :topic, class:"form-control" %>
           </div>
 
-          <% if params[:action] == "edit" %>
+          <% if method === :put %>
             <div class="field mb-3">
               <%= form.label "Administrator" %>
-              <%= form.collection_select :admin_id, room.users, :id, :name %>
+              <%= form.collection_select :admin_id, room.users, :id, :email %>
             </div>
           <% end %>
       </div>

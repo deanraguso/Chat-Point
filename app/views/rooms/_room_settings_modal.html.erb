@@ -1,0 +1,40 @@
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="settingsModalLabel">Room Settings</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Members: 
+        <br>
+        <% @room.users.each do |u| %>
+            <%= u.name %> (<%= u.email %>)
+            <% if current_user == @room.admin && u.email != @room.admin.email %>
+                <%= link_to "Remove", room_remove_user_path(@room.id, u.id), method: :put %>
+            <% end %>
+            <br>
+        <% end %>
+        <%= form_for :user, url: room_add_user_url ,method: :post do |f| %>
+        <div class=field>
+            <%= f.label "User Email" %>
+            <%= f.text_field :email%>
+        </div>
+        
+        <%= f.submit "Add User", class: "btn btn-primary" %>
+
+        <% end %>
+
+        <% if @room.admin == current_user %>
+          <button type="button" class="btn btn-danger" data-bs-target="#editRoomModal" data-bs-toggle="modal" data-bs-dismiss="modal" >
+              Edit Room
+          </button>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
