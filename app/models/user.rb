@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable
 
-  validates :name, uniqueness: true, presence: true
+  validates :name, presence: true
   has_many :messages, dependent: :destroy
   has_and_belongs_to_many :rooms
 
