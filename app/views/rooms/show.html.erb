@@ -29,6 +29,7 @@
   </div>
 
   <div class="container col-12 col-md-9 p-3 align-self-end bg-light">
+    <p id="notice"><%= notice %></p>
     <div id="messages">
         <% @room.messages.sort {|m| -m.created_at.to_i}.each do |m| %>
             <div>

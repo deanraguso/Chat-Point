@@ -1,24 +1,19 @@
-# README
+# Chat Point
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<a href="https://dean-chat-point.herokuapp.com/">Hosted on Heroku now! (mind the wait)</a>
 
-Things you may want to cover:
+### Description
 
-* Ruby version
+A simple cross-service messaging application.
+- Log in using your Facebook, GitHub, or Google accounts.
+- Send and receive messages in real time.
+- Create chatrooms freely, and have full administrative control.
 
-* System dependencies
+### Stack
+- Built using Rails.
+  - Web Socket connections using Action Cable.
+- Styled using Heroku.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Contact
+- Built and Maintained by Dean Raguso
+- Feel free to message me with any queries on this project.

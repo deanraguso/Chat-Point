@@ -29,12 +29,18 @@ class RoomsController < ApplicationController
     @user_to_add = User.find_by(email: email)
     
     respond_to do |format|
-      if @room.users.push(@user_to_add)
-        format.html { redirect_to @room, notice: "#{@user_to_add.name} was successfully added." }
-        format.json { render :show, status: :ok, location: @room }
+
+      # Email didn't exist.
+      unless @user_to_add
+        format.html { redirect_to @room, notice: "That user does not exist!" }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @room.errors, status: :unprocessable_entity }
+        if @room.users.push(@user_to_add)
+          format.html { redirect_to @room, notice: "#{@user_to_add.name} was successfully added." }
+          format.json { render :show, status: :ok, location: @room }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @room.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
