@@ -1,26 +1,19 @@
-<p id="notice"><%= notice %></p>
+<div class="row h-100">
+  <div class="container col-3 bg-secondary p-0">  
+    <h2 class="text-white p-2">Rooms</h2>
+    <p id="notice"><%= notice %></p>
 
-<h1>Rooms</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
-
-  <tbody>
     <% @rooms.each do |room| %>
-      <tr>
-        <td><%= room.name %> - Topic: <%= room.topic %></td>
-        <td><%= link_to 'Show', room %></td>
-        <td><%= link_to 'Edit', edit_room_path(room) %></td>
-        <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="card m-0 border-1 bg-light rounded-0" style="width: 100%;min-width: 100px;">
+        <div class="card-body p-1">
+          <h5 class="card-title m-0"><%= room.name %></h5>
+          <a href="<%= room_url(room.id) %>" class="stretched-link"></a>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+    <%= link_to 'Create Room', new_room_path, class: "btn btn-primary" %>
+  </div>
 
-<%= link_to 'New Room', new_room_path %>
+  <div class="container col-9"></div>
+</div>

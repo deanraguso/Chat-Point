@@ -13,7 +13,7 @@ function create_message(content){
   return div;
 }
 
-if(url.indexOf("rooms") != -1){
+if(url.indexOf("rooms/") != -1){
 
   let room_id = parseInt(url.substring(url.search("rooms/") + 6));
 
