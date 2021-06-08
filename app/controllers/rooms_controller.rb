@@ -8,12 +8,15 @@ class RoomsController < ApplicationController
   # GET /rooms or /rooms.json
   def index
     @rooms = Room.all
+    @room = Room.new
   end
 
   # GET /rooms/1 or /rooms/1.json
   def show
     gon.current_user = current_user
     gon.users = @room.users
+    @new_room = Room.new
+    @rooms = Room.all
   end
 
   # GET /rooms/new

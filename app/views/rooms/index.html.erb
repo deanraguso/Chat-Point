@@ -1,26 +1,27 @@
-<p id="notice"><%= notice %></p>
+<div class="row h-100">
+  <div class="container col-12 col-md-3 bg-secondary p-0 h-100">  
+    <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#newRoomModal">
+      Create Room
+    </button>
+    <div class="card m-0 border-1 bg-dark text-white rounded-0" style="width: 100%;min-width: 100px;">
+      <div class="card-body p-1 text-center">
+        <h2>Rooms</h2>
+      </div>
+    </div>
 
-<h1>Rooms</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
-
-  <tbody>
     <% @rooms.each do |room| %>
-      <tr>
-        <td><%= room.name %> - Topic: <%= room.topic %></td>
-        <td><%= link_to 'Show', room %></td>
-        <td><%= link_to 'Edit', edit_room_path(room) %></td>
-        <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="card m-0 border-1 bg-dark text-white rounded-0" style="width: 100%;min-width: 100px;">
+        <div class="card-body p-1">
+          <p class="card-title m-0"><%= room.name %></p>
+          <a href="<%= room_url(room.id) %>" class="stretched-link"></a>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
+  <div class="container col-9 bg-light">
+    <p id="notice"><%= notice %></p>
+  </div>
+</div>
 
-<%= link_to 'New Room', new_room_path %>
+<%= render 'modal_form', room: @room %>

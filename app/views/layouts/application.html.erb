@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height:100vh">
   <head>
     <%= Gon::Base.render_data %>
     <title>Chat Point</title>
@@ -8,11 +8,15 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'  %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
   </head>
 
-  <body>
+  <body class='container-fluid h-100 d-flex flex-column m-0 p-0'>
     <%= render 'layouts/nav_bar' %>
-    <%= yield %>
+    <div class='container-fluid h-100 d-flex flex-column'>
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -8,12 +8,12 @@ function create_message(content){
 
   div.innerHTML = `${user.name}: ${content.content} `; 
   if (user.id === gon.current_user.id){
-    div.innerHTML += `<a rel="nofollow" data-method="delete" href="/messages/${content.id}">delete</a>`
+    div.innerHTML += `<a rel="nofollow" data-method="delete" class="btn btn-danger px-1 py-0" href="/messages/${content.id}">delete</a>`
   }
   return div;
 }
 
-if(url.indexOf("rooms") != -1){
+if(url.indexOf("rooms/") != -1){
 
   let room_id = parseInt(url.substring(url.search("rooms/") + 6));
 

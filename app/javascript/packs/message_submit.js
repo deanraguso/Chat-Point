@@ -1,6 +1,6 @@
-document.querySelectorAll("input[name='commit']")[1].addEventListener("click", (e)=> {
+document.querySelector("input[name='commit']").addEventListener("click", (e)=> {
     setTimeout(()=>{
         document.querySelector("#message_content").value = "";
-        document.querySelectorAll("input[name='commit']")[1].disabled = false;
+        document.querySelector("input[name='commit']").disabled = false;
     }, 100);
 });
