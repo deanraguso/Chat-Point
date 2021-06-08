@@ -6,14 +6,18 @@
     <% @rooms.each do |room| %>
       <div class="card m-0 border-1 bg-light rounded-0" style="width: 100%;min-width: 100px;">
         <div class="card-body p-1">
-          <h5 class="card-title m-0"><%= room.name %></h5>
+          <p class="card-title m-0"><%= room.name %></p>
           <a href="<%= room_url(room.id) %>" class="stretched-link"></a>
         </div>
       </div>
     <% end %>
 
-    <%= link_to 'Create Room', new_room_path, class: "btn btn-primary" %>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newRoomModal">
+      Create Room
+    </button>
   </div>
 
   <div class="container col-9"></div>
 </div>
+
+<%= render 'modal_form', room: @room %>
