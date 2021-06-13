@@ -28,9 +28,9 @@
   <div class="container-fluid d-flex justify-content-between">
     <%- resource_class.omniauth_providers.each do |provider| %>
 
-      <div class="row g-0 position-relative">
-        <div class="container-fluid col-md-6 p-4 ps-md-0 p-0">
-          <%= image_tag provider, class: "w-100" %>
+      <div class="row g-0 position-relative p-0">
+        <div class="container-fluid col-md-6 p-2 ps-md-0 p-0 w-100">
+          <%= image_tag provider, class: "w-100", style: "max-width: 75px" %>
           <%= link_to "", omniauth_authorize_path(resource_name, provider), method: :post, class: "stretched-link" %><br />
         </div>
       </div>
