@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :messages, only: [:create, :destroy]
   devise_for :users, controllers: {omniauth_callbacks: "callbacks"}
   root 'pages#index'
+  get 'pages/demo_login', to: 'pages#demo_login' 
   mount ActionCable.server => '/cable'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

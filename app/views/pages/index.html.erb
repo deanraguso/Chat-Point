@@ -9,12 +9,30 @@
             </div>
         </div>
     </div>
-    <div class="row col-12 col-md-3 bg-dark text-white text-center h-25"> 
+    <div class="row col-12 col-md-3 py-3 bg-dark text-white text-center h-25"> 
         <div class="d-flex position-relative m-0 p-0 align-self-center">
             <div class="container-fluid">
                 <h4>Find this project on GitHub</h4>
                 <a href="https://github.com/deanraguso/Chat-Point" target="_BLANK" class="stretched-link"></a>
             </div>
         </div>
+        <% unless current_user %>
+            <div class="d-flex position-relative m-0 p-0 align-self-center">
+                <div class="container-fluid">
+                    <%= link_to "LOGIN", new_user_session_path, class: "btn btn-success w-100" %>
+                </div>
+            </div>
+            <div class="d-flex position-relative m-0 p-0 align-self-center">
+                <div class="container-fluid">
+                    <%= link_to "DEMO ACCOUNT LOGIN", pages_demo_login_path, class: "btn btn-success w-100" %>
+                </div>
+            </div>
+        <% else %>
+            <div class="d-flex position-relative m-0 p-0 align-self-center">
+                <div class="container-fluid">
+                    <%= link_to "YOU ARE LOGGED IN - SIGN OUT", destroy_user_session_path , class: "btn btn-danger w-100", method: :delete %>
+                </div>
+            </div>
+        <% end %>
     </div>
 </div>
