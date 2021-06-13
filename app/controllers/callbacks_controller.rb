@@ -26,7 +26,7 @@ class CallbacksController < ApplicationController
     end
 
     def failure
-        redirect_to root_path
+        redirect_to new_user_registration_path, notice: "OAuth login has failed!"
     end
 
 end

@@ -25,9 +25,15 @@
 <% end %>
 
 <%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <div class="mb-3">
-      <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post, class: "btn btn-primary" %><br />
-    </div>
-  <% end %>
+  <div class="container-fluid d-flex justify-content-between">
+    <%- resource_class.omniauth_providers.each do |provider| %>
+
+      <div class="row g-0 position-relative">
+        <div class="container-fluid col-md-6 p-4 ps-md-0 p-0">
+          <%= image_tag provider, class: "w-100" %>
+          <%= link_to "", omniauth_authorize_path(resource_name, provider), method: :post, class: "stretched-link" %><br />
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>
