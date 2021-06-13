@@ -6,7 +6,7 @@ class CallbacksController < ApplicationController
         unless User.find_by(email: @user.email).nil? 
             @user = User.find_by(email: @user.email)
         end
-        sign_in_and_redirect @user
+        sign_in_and_redirect rooms_path
     end
 
     def google_oauth2
@@ -14,7 +14,7 @@ class CallbacksController < ApplicationController
         unless User.find_by(email: @user.email).nil? 
             @user = User.find_by(email: @user.email)
         end
-        sign_in_and_redirect @user
+        sign_in_and_redirect rooms_path
     end
 
     def facebook
@@ -22,7 +22,7 @@ class CallbacksController < ApplicationController
         unless User.find_by(email: @user.email).nil? 
             @user = User.find_by(email: @user.email)
         end
-        sign_in_and_redirect @user
+        sign_in_and_redirect rooms_path
     end
 
     def failure
